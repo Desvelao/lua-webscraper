@@ -1,0 +1,113 @@
+local webscraper = require("webscraper.init")
+
+local function _print(options)
+	print(options)
+end
+
+describe("Web scrapper", function()
+	it("Register filter", function()
+
+		local scrapper = webscraper.webscraper:new()
+
+		scrapper.filters:register(function(v) return tostring(v):lower() end)
+		
+		for k,v in pairs(scrapper.filters._set) do
+			print(k)
+		end
+		
+	end)
+
+	-- it("Filters stash", function()
+	-- 	local t = {
+	-- 		print = _print
+	-- 	}
+
+	-- 	stub(t, 'print')
+	-- 	luastash(
+	-- 		{
+	-- 			inputs = {
+	-- 				{
+	-- 					type='input-test',
+	-- 					options={
+	-- 						values={1,2,3,4,5}
+	-- 					}
+	-- 				}
+	-- 			},
+	-- 			filters = {
+	-- 				{
+	-- 					type='increase',
+	-- 					options={
+	-- 						value=2
+	-- 					}
+	-- 				}
+	-- 			},
+	-- 			outputs = {
+	-- 				{
+	-- 					type='output-test',
+	-- 					options={}
+	-- 				}
+	-- 			},
+	-- 		},
+	-- 		{
+	-- 			inputs = {
+	-- 				['input-test'] = input_integers
+	-- 			},
+	-- 			filters = {
+	-- 				increase = increase_integer
+	-- 			},
+	-- 			outputs = {
+	-- 				['output-test'] = function(options, data)
+	-- 					t.print(data)
+	-- 					assert.stub(t.print).was.called_with(data)
+	-- 				end
+	-- 			}
+	-- 		}
+	-- 	)
+		
+	-- end)
+
+	-- it("Skip input stash", function()
+	-- 	local t = {
+	-- 		print = _print
+	-- 	}
+
+	-- 	stub(t, 'print')
+	-- 	luastash(
+	-- 		{
+	-- 			inputs = {
+	-- 				{
+	-- 					type='input-test',
+	-- 					options={
+	-- 						values={1,2,3,4,5},
+	-- 						continues=4
+	-- 					}
+	-- 				}
+	-- 			},
+	-- 			-- filters = {
+
+	-- 			-- },
+	-- 			outputs = {
+	-- 				{
+	-- 					type='output-test',
+	-- 					options={}
+	-- 				}
+	-- 			},
+	-- 		},
+	-- 		{
+	-- 			inputs = {
+	-- 				['input-test'] = input_integers_continue
+	-- 			},
+	-- 			-- filters = {
+
+	-- 			-- },
+	-- 			outputs = {
+	-- 				['output-test'] = function(options, data)
+	-- 					t.print(data)
+	-- 					assert.stub(t.print).was.called_with(data)
+	-- 				end
+	-- 			}
+	-- 		}
+	-- 	)
+		
+	-- end)
+end)
