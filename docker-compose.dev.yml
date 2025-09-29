@@ -1,0 +1,11 @@
+services:
+  dev:
+    build: ./docker
+    image: lua-webscraper
+    container_name: lua-webscraper
+    volumes:
+      - ./:/app
+    working_dir: /app
+    # Debug
+    entrypoint: ["tail", "-f", "/dev/null"]
+

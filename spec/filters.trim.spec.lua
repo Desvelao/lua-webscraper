@@ -1,0 +1,16 @@
+local filter = require("webscraper.filters.filters").trim
+
+describe("Filters", function()
+	it("trim", function()
+		assert.is_equal("test", filter("test"))
+		assert.is_equal("TEST", filter("TEST"))
+		assert.is_equal("test", filter(" test"))
+		assert.is_equal("TEST", filter(" TEST"))
+		assert.is_equal("test", filter("test "))
+		assert.is_equal("TEST", filter("TEST "))
+		assert.is_equal("test", filter(" test "))
+		assert.is_equal("TEST", filter(" TEST "))
+		assert.is_equal("test", filter("  test  "))
+		assert.is_equal("TEST", filter("  TEST  "))
+	end)
+end)
