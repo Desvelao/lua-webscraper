@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>webscraper - Scrap data of webpages (v0.1.0)</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>webscraper</h1>
+
+
+
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="modules/filters.html">filters</a></li>
+  <li><a href="modules/filters.filters.lowercase.html">filters.filters.lowercase</a></li>
+  <li><a href="modules/filters.filters.match.html">filters.filters.match</a></li>
+  <li><a href="modules/filters.filters.parse_date.html">filters.filters.parse_date</a></li>
+  <li><a href="modules/filters.filters.replace.html">filters.filters.replace</a></li>
+  <li><a href="modules/filters.filters.to_boolean.html">filters.filters.to_boolean</a></li>
+  <li><a href="modules/filters.filters.to_number.html">filters.filters.to_number</a></li>
+  <li><a href="modules/filters.filters.trim.html">filters.filters.trim</a></li>
+  <li><a href="modules/filters.filters.uppercase.html">filters.filters.uppercase</a></li>
+  <li><a href="modules/validators.html">validators</a></li>
+  <li><a href="modules/filters.filters.is_boolean.html">filters.filters.is_boolean</a></li>
+  <li><a href="modules/filters.filters.is_number.html">filters.filters.is_number</a></li>
+  <li><a href="modules/filters.filters.is_string.html">filters.filters.is_string</a></li>
+  <li><a href="modules/WebScraper.html">WebScraper</a></li>
+  <li><a href="modules/dsl_filter.html">dsl_filter</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="classes/WebScraper.html">WebScraper</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+
+  <h2>Scrap data of webpages</h2>
+  <p>
+
+</p>
+
+<h2>Modules</h2>
+<table class="module_list">
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.html">filters</a></td>
+		<td class="summary">This module aggregates all filter modules and exposes them as a single module.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.lowercase.html">filters.filters.lowercase</a></td>
+		<td class="summary">Lowercase filter
+ This module provides a filter to convert input values to lowercase strings.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.match.html">filters.filters.match</a></td>
+		<td class="summary">Match filter
+ This module provides a filter to match strings against a given regular expression.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.parse_date.html">filters.filters.parse_date</a></td>
+		<td class="summary">Parse date filter
+ This module provides a filter to parse date strings into ISO format.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.replace.html">filters.filters.replace</a></td>
+		<td class="summary">Replace filter
+ This module provides a filter to replace occurrences of a pattern in a string with a replacement string.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.to_boolean.html">filters.filters.to_boolean</a></td>
+		<td class="summary">ToBoolean filter
+ This module provides a filter to convert input values to boolean.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.to_number.html">filters.filters.to_number</a></td>
+		<td class="summary">ToNumber filter
+ This module provides a filter to convert strings to numbers, handling common decimal and grouping conventions.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.trim.html">filters.filters.trim</a></td>
+		<td class="summary">Trim filter
+ This module provides a filter to trim leading and trailing whitespace from strings.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.uppercase.html">filters.filters.uppercase</a></td>
+		<td class="summary">Uppercase filter
+ This module provides a filter to convert input values to uppercase strings.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/validators.html">validators</a></td>
+		<td class="summary">This module aggregates various validator filters for the webscraper.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.is_boolean.html">filters.filters.is_boolean</a></td>
+		<td class="summary">IsBoolean filter
+ This module provides a filter to validate if a value is a boolean.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.is_number.html">filters.filters.is_number</a></td>
+		<td class="summary">IsNumber filter
+ This module provides a filter to check if a value is a number.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/filters.filters.is_string.html">filters.filters.is_string</a></td>
+		<td class="summary">IsNumber filter
+ This module provides a filter to check if a value is a string.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/WebScraper.html">WebScraper</a></td>
+		<td class="summary">Main entry point for the webscraper module
+ This module initializes the webscraper, registers filters and validators,
+ and exposes the main WebScraper class along with available filters and validators.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/dsl_filter.html">dsl_filter</a></td>
+		<td class="summary">The DSL filter module provides functionality to apply a series of filters
+ to a given value based on a pipeline string.</td>
+	</tr>
+</table>
+<h2>Classes</h2>
+<table class="module_list">
+	<tr>
+		<td class="name"  nowrap><a href="classes/WebScraper.html">WebScraper</a></td>
+		<td class="summary">WebScraper class
+ A class for scraping web pages based on predefined site scrapers, applying transformations and validations.</td>
+	</tr>
+</table>
+<h2>Topics</h2>
+<table class="module_list">
+	<tr>
+		<td class="name"  nowrap><a href="topics/README.md.html">README.md</a></td>
+		<td class="summary"></td>
+	</tr>
+</table>
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2025-10-01 09:49:11 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

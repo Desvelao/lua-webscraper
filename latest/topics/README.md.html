@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>webscraper - Scrap data of webpages (v0.1.0)</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>webscraper</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Description">Description </a></li>
+<li><a href="#Features">Features </a></li>
+<li><a href="#Installation">Installation </a></li>
+<li><a href="#Usage">Usage </a></li>
+<li><a href="#Run_environment">Run environment </a></li>
+<li><a href="#Run_tests">Run tests </a></li>
+<li><a href="#Format_code">Format code </a></li>
+</ul>
+
+
+<h2>Topics</h2>
+<ul class="">
+  <li><strong>README</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/filters.html">filters</a></li>
+  <li><a href="../modules/filters.filters.lowercase.html">filters.filters.lowercase</a></li>
+  <li><a href="../modules/filters.filters.match.html">filters.filters.match</a></li>
+  <li><a href="../modules/filters.filters.parse_date.html">filters.filters.parse_date</a></li>
+  <li><a href="../modules/filters.filters.replace.html">filters.filters.replace</a></li>
+  <li><a href="../modules/filters.filters.to_boolean.html">filters.filters.to_boolean</a></li>
+  <li><a href="../modules/filters.filters.to_number.html">filters.filters.to_number</a></li>
+  <li><a href="../modules/filters.filters.trim.html">filters.filters.trim</a></li>
+  <li><a href="../modules/filters.filters.uppercase.html">filters.filters.uppercase</a></li>
+  <li><a href="../modules/validators.html">validators</a></li>
+  <li><a href="../modules/filters.filters.is_boolean.html">filters.filters.is_boolean</a></li>
+  <li><a href="../modules/filters.filters.is_number.html">filters.filters.is_number</a></li>
+  <li><a href="../modules/filters.filters.is_string.html">filters.filters.is_string</a></li>
+  <li><a href="../modules/WebScraper.html">WebScraper</a></li>
+  <li><a href="../modules/dsl_filter.html">dsl_filter</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/WebScraper.html">WebScraper</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+
+<h1>webscraper</h1>
+
+<p><a name="Description"></a></p>
+<h2>Description</h2>
+
+<p>This library provides a way to scrap data of webpages.</p>
+
+<p><a name="Features"></a></p>
+<h2>Features</h2>
+
+<ul>
+    <li>Define configurations for sites with URL matchers and field selectors.</li>
+    <li>Use CSS selectors to extract content from HTML elements.</li>
+    <li>Apply a string-based pipeline to filter and validate the data.</li>
+    <li>Supports extensible filters and validators for custom transformations.</li>
+</ul>
+
+<p><a name="Installation"></a></p>
+<h2>Installation</h2>
+
+<p>To install the library, use <a href="https://luarocks.org/">LuaRocks</a>:</p>
+
+
+<pre>
+luarocks install webscraper
+</pre>
+
+
+<p><a name="Usage"></a></p>
+<h2>Usage</h2>
+
+<h3>Basic example</h3>
+
+
+<pre>
+<span class="keyword">local</span> webscraper = <span class="global">require</span>(<span class="string">"webscraper"</span>)
+
+<span class="comment">-- Create a new WebScraper instance
+</span><span class="keyword">local</span> scraper = webscraper.WebScraper:<span class="function-name">new</span>()
+<span class="keyword">local</span> builtin_scrapper = webscraper <span class="comment">-- This is the built-in scrapper that has all the built-in filters and valitors pre-loaded
+</span>
+<span class="comment">-- Define a site configuration
+</span>scraper.sites:<span class="function-name">register</span>(<span class="string">"example"</span>, {
+    urls_match = { <span class="string">"https://example.com/.*"</span> },
+    fields = {
+        title = {
+            selector = { <span class="string">"h1"</span> },
+            transform = <span class="string">"trim | uppercase"</span>,
+            validate = <span class="string">"is_string"</span>,
+        },
+        subtitle = {
+            selector = { <span class="string">"h2"</span>, <span class="string">"h2.subtitle"</span> }, <span class="comment">-- Support multiple selectors to retrieve data for the same field
+</span>            transform = <span class="string">"trim | uppercase"</span>,
+            validate = <span class="string">"is_string"</span>,
+        },
+        date = {
+            selector = { <span class="string">".date"</span> },
+            transform = <span class="string">"trim | parse_date('%d/%m/%Y')"</span>,
+            validate = <span class="string">"is_string"</span>,
+        },
+    },
+})
+
+<span class="comment">-- Run the scraper
+</span><span class="keyword">local</span> result = scraper:<span class="function-name">run</span>(<span class="string">"https://example.com"</span>, {}, { logger = <span class="global">print</span> })
+<span class="global">print</span>(result)
+</pre>
+
+
+<h3>Filters</h3>
+
+<p>Filters are used to transform data. Some built-in filters include:</p>
+
+<ul>
+    <li><code>lowercase</code>: Converts a string to lowercase.</li>
+    <li><code>uppercase</code>: Converts a string to uppercase.</li>
+    <li><code>trim</code>: Removes leading and trailing whitespace.</li>
+    <li><code>to_number</code>: Converts a string to a number.</li>
+    <li><code>parse_date</code>: Parses a date string into a specific format.</li>
+</ul>
+
+<h3>Validators</h3>
+
+<p>Validators ensure the data meets specific criteria. Some built-in validators include:</p>
+
+<ul>
+    <li><code>is_boolean</code>: Checks if the value is a boolean.</li>
+    <li><code>is_number</code>: Checks if the value is a number.</li>
+    <li><code>is_string</code>: Checks if the value is a string.</li>
+</ul>
+
+<h4>CUstom filters and validators</h4>
+
+
+<pre>
+<span class="comment">-- Register a custom filter
+</span>webscraper.filters:<span class="function-name">register</span>(<span class="string">"reverse"</span>, <span class="keyword">function</span>(v)
+    <span class="keyword">return</span> v:<span class="function-name">reverse</span>()
+<span class="keyword">end</span>)
+
+<span class="comment">-- Register a custom validator
+</span>webscraper.validators:<span class="function-name">register</span>(<span class="string">"is_positive"</span>, <span class="keyword">function</span>(v)
+    <span class="keyword">if</span> <span class="global">tonumber</span>(v) &gt; <span class="number">0</span> <span class="keyword">then</span>
+        <span class="keyword">return</span> <span class="keyword">nil</span>
+    <span class="keyword">else</span>
+        <span class="keyword">return</span> <span class="global">tostring</span>(v) .. <span class="string">" is not positive"</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>)
+</pre>
+
+
+<h1>Development</h1>
+
+<p><a name="Run_environment"></a></p>
+<h2>Run environment</h2>
+
+<pre><code> docker compose -f docker-compose.dev.yml up -d
+ docker compose -f docker-compose.dev.yml exec dev sh
+</code></pre>
+
+
+<p><a name="Run_tests"></a></p>
+<h2>Run tests</h2>
+
+<p>Run the test suite using <a href="https://olivinelabs.com/busted/">Busted</a>:</p>
+
+<pre><code> /usr/local/bin/busted
+</code></pre>
+
+
+<p><a name="Format_code"></a></p>
+<h2>Format code</h2>
+
+<p>Run the test suite using <a href="https://github.com/JohnnyMorganz/StyLua">StyLua</a>:</p>
+
+<pre><code> /usr/local/bin/stylua src
+</code></pre>
+
+
+<h1>License</h1>
+
+<p>This library is licensed under the MIT License. See the LICENSE file for details.</p>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2025-10-01 09:49:11 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
