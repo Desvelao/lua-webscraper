@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>webscraper - Scrap data of webpages (v0.1.0)</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>webscraper</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><strong>WebScraper</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/filters.html">filters</a></li>
+  <li><a href="../modules/filters.filters.lowercase.html">filters.filters.lowercase</a></li>
+  <li><a href="../modules/filters.filters.match.html">filters.filters.match</a></li>
+  <li><a href="../modules/filters.filters.parse_date.html">filters.filters.parse_date</a></li>
+  <li><a href="../modules/filters.filters.replace.html">filters.filters.replace</a></li>
+  <li><a href="../modules/filters.filters.to_boolean.html">filters.filters.to_boolean</a></li>
+  <li><a href="../modules/filters.filters.to_number.html">filters.filters.to_number</a></li>
+  <li><a href="../modules/filters.filters.trim.html">filters.filters.trim</a></li>
+  <li><a href="../modules/filters.filters.uppercase.html">filters.filters.uppercase</a></li>
+  <li><a href="../modules/validators.html">validators</a></li>
+  <li><a href="../modules/filters.filters.is_boolean.html">filters.filters.is_boolean</a></li>
+  <li><a href="../modules/filters.filters.is_number.html">filters.filters.is_number</a></li>
+  <li><a href="../modules/filters.filters.is_string.html">filters.filters.is_string</a></li>
+  <li><strong>WebScraper</strong></li>
+  <li><a href="../modules/dsl_filter.html">dsl_filter</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>WebScraper</code></h1>
+<p>WebScraper class
+ A class for scraping web pages based on predefined site scrapers, applying transformations and validations.</p>
+<p> Each site scraper defines how to extract data from specific web pages using CSS selectors, transformation functions, and validation functions.
+ The WebScraper class manages a collection of site scrapers, filters, and validators, and provides methods to run the scraping process for a given URL.</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#webscraper:new">webscraper:new ()</a></td>
+	<td class="summary">Create a new instance of WebScraper.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#webscraper:apply_transform">webscraper:apply_transform (value, pipeline_str)</a></td>
+	<td class="summary">Apply a transformation pipeline to a given value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#webscraper:apply_validation">webscraper:apply_validation (value, pipeline_str)</a></td>
+	<td class="summary">Apply a validation pipeline to a given value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#webscraper:run">webscraper:run (url, ctx, utils)</a></td>
+	<td class="summary">Run the web scraper for a given URL.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "webscraper:new"></a>
+    <strong>webscraper:new ()</strong>
+    </dt>
+    <dd>
+    Create a new instance of WebScraper.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        WebScraper A new WebScraper instance.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "webscraper:apply_transform"></a>
+    <strong>webscraper:apply_transform (value, pipeline_str)</strong>
+    </dt>
+    <dd>
+    Apply a transformation pipeline to a given value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         The value to be transformed.
+        </li>
+        <li><span class="parameter">pipeline_str</span>
+         A string representing the transformation pipeline, e.g., "fn1(...) | fn2(...)".
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "webscraper:apply_validation"></a>
+    <strong>webscraper:apply_validation (value, pipeline_str)</strong>
+    </dt>
+    <dd>
+    Apply a validation pipeline to a given value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         The value to be validated.
+        </li>
+        <li><span class="parameter">pipeline_str</span>
+         A string representing the validation pipeline, e.g., "fn1(...) | fn2(...)".
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "webscraper:run"></a>
+    <strong>webscraper:run (url, ctx, utils)</strong>
+    </dt>
+    <dd>
+    Run the web scraper for a given URL.
+ It matches the URL against registered site scrapers and applies the corresponding scraper if a match is found.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">url</span>
+         The URL to scrape.
+        </li>
+        <li><span class="parameter">ctx</span>
+         A table containing context information for the scraping process.
+        </li>
+        <li><span class="parameter">utils</span>
+         A table containing utility functions and logger.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2025-10-01 09:49:11 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
