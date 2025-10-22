@@ -59,15 +59,19 @@
   <li><a href="../modules/filters.filters.trim.html">filters.filters.trim</a></li>
   <li><a href="../modules/filters.filters.uppercase.html">filters.filters.uppercase</a></li>
   <li><a href="../modules/validators.html">validators</a></li>
-  <li><a href="../modules/filters.filters.is_boolean.html">filters.filters.is_boolean</a></li>
-  <li><a href="../modules/filters.filters.is_number.html">filters.filters.is_number</a></li>
-  <li><a href="../modules/filters.filters.is_string.html">filters.filters.is_string</a></li>
+  <li><a href="../modules/filters.validators.is_boolean.html">filters.validators.is_boolean</a></li>
+  <li><a href="../modules/filters.validators.is_number.html">filters.validators.is_number</a></li>
+  <li><a href="../modules/filters.validators.is_string.html">filters.validators.is_string</a></li>
   <li><a href="../modules/WebScraper.html">WebScraper</a></li>
   <li><a href="../modules/dsl_filter.html">dsl_filter</a></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
   <li><a href="../classes/WebScraper.html">WebScraper</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/example.lua.html">example.lua</a></li>
 </ul>
 
 </div>
@@ -80,7 +84,7 @@
 <p><a name="Description"></a></p>
 <h2>Description</h2>
 
-<p>This library provides a way to scrap data of webpages.</p>
+<p>This library provides a way to scrap data of static HTML webpages (data is not rendered using JavaScript).</p>
 
 <p><a name="Features"></a></p>
 <h2>Features</h2>
@@ -114,7 +118,7 @@ luarocks install webscraper
 
 <span class="comment">-- Create a new WebScraper instance
 </span><span class="keyword">local</span> scraper = webscraper.WebScraper:<span class="function-name">new</span>()
-<span class="keyword">local</span> builtin_scrapper = webscraper <span class="comment">-- This is the built-in scrapper that has all the built-in filters and valitors pre-loaded
+<span class="keyword">local</span> builtin_scraper = webscraper <span class="comment">-- This is the built-in scraper that has all the built-in filters and valitors pre-loaded
 </span>
 <span class="comment">-- Define a site configuration
 </span>scraper.sites:<span class="function-name">register</span>(<span class="string">"example"</span>, {
@@ -123,8 +127,8 @@ luarocks install webscraper
         title = {
             selector = { <span class="string">"h1"</span> },
             transform = <span class="string">"trim | uppercase"</span>,
-            validate = <span class="string">"is_string"</span>,
-        },
+            validate = <span class="string">"is_string"</span>, <span class="comment">-- The validation ensures the transformed data fulfill the condition, else the field value will be nil
+</span>        },
         subtitle = {
             selector = { <span class="string">"h2"</span>, <span class="string">"h2.subtitle"</span> }, <span class="comment">-- Support multiple selectors to retrieve data for the same field
 </span>            transform = <span class="string">"trim | uppercase"</span>,
@@ -139,7 +143,7 @@ luarocks install webscraper
 })
 
 <span class="comment">-- Run the scraper
-</span><span class="keyword">local</span> result = scraper:<span class="function-name">run</span>(<span class="string">"https://example.com"</span>, {}, { logger = <span class="global">print</span> })
+</span><span class="keyword">local</span> result = scraper:<span class="function-name">run</span>(<span class="string">"https://example.com"</span>)
 <span class="global">print</span>(result)
 </pre>
 
@@ -150,10 +154,11 @@ luarocks install webscraper
 
 <ul>
     <li><code>lowercase</code>: Converts a string to lowercase.</li>
-    <li><code>uppercase</code>: Converts a string to uppercase.</li>
-    <li><code>trim</code>: Removes leading and trailing whitespace.</li>
-    <li><code>to_number</code>: Converts a string to a number.</li>
+    <li><code>match</code>: Match a text.</li>
     <li><code>parse_date</code>: Parses a date string into a specific format.</li>
+    <li><code>to_number</code>: Converts a string to a number.</li>
+    <li><code>trim</code>: Removes leading and trailing whitespace.</li>
+    <li><code>uppercase</code>: Converts a string to uppercase.</li>
 </ul>
 
 <h3>Validators</h3>
@@ -166,7 +171,7 @@ luarocks install webscraper
     <li><code>is_string</code>: Checks if the value is a string.</li>
 </ul>
 
-<h4>CUstom filters and validators</h4>
+<h4>Custom filters and validators</h4>
 
 
 <pre>
@@ -191,9 +196,17 @@ luarocks install webscraper
 <p><a name="Run_environment"></a></p>
 <h2>Run environment</h2>
 
-<pre><code> docker compose -f docker-compose.dev.yml up -d
- docker compose -f docker-compose.dev.yml exec dev sh
-</code></pre>
+
+<pre>
+# Start environment
+docker compose -f docker-compose.dev.yml up -d
+
+# If the container was created, run:
+docker compose -f docker-compose.dev.yml exec dev sh /app/setup/setup.sh
+
+# Enter to container
+docker compose -f docker-compose.dev.yml exec dev sh
+</pre>
 
 
 <p><a name="Run_tests"></a></p>
@@ -201,8 +214,10 @@ luarocks install webscraper
 
 <p>Run the test suite using <a href="https://olivinelabs.com/busted/">Busted</a>:</p>
 
-<pre><code> /usr/local/bin/busted
-</code></pre>
+
+<pre>
+/usr/<span class="keyword">local</span>/bin/busted
+</pre>
 
 
 <p><a name="Format_code"></a></p>
@@ -210,8 +225,10 @@ luarocks install webscraper
 
 <p>Run the test suite using <a href="https://github.com/JohnnyMorganz/StyLua">StyLua</a>:</p>
 
-<pre><code> /usr/local/bin/stylua src
-</code></pre>
+
+<pre>
+/usr/<span class="keyword">local</span>/bin/stylua src spec examples
+</pre>
 
 
 <h1>License</h1>
@@ -223,7 +240,7 @@ luarocks install webscraper
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
-<i style="float:right;">Last updated 2025-10-01 09:49:11 </i>
+<i style="float:right;">Last updated 2025-10-22 17:48:55 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

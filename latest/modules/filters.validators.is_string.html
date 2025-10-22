@@ -41,7 +41,7 @@
 <ul class="nowrap">
   <li><a href="../modules/filters.html">filters</a></li>
   <li><a href="../modules/filters.filters.lowercase.html">filters.filters.lowercase</a></li>
-  <li><strong>filters.filters.match</strong></li>
+  <li><a href="../modules/filters.filters.match.html">filters.filters.match</a></li>
   <li><a href="../modules/filters.filters.parse_date.html">filters.filters.parse_date</a></li>
   <li><a href="../modules/filters.filters.replace.html">filters.filters.replace</a></li>
   <li><a href="../modules/filters.filters.to_boolean.html">filters.filters.to_boolean</a></li>
@@ -51,7 +51,7 @@
   <li><a href="../modules/validators.html">validators</a></li>
   <li><a href="../modules/filters.validators.is_boolean.html">filters.validators.is_boolean</a></li>
   <li><a href="../modules/filters.validators.is_number.html">filters.validators.is_number</a></li>
-  <li><a href="../modules/filters.validators.is_string.html">filters.validators.is_string</a></li>
+  <li><strong>filters.validators.is_string</strong></li>
   <li><a href="../modules/WebScraper.html">WebScraper</a></li>
   <li><a href="../modules/dsl_filter.html">dsl_filter</a></li>
 </ul>
@@ -72,9 +72,9 @@
 
 <div id="content">
 
-<h1>Module <code>filters.filters.match</code></h1>
-<p>Match filter
- This module provides a filter to match strings against a given regular expression.</p>
+<h1>Module <code>filters.validators.is_string</code></h1>
+<p>IsNumber filter
+ This module provides a filter to check if a value is a string.</p>
 <p>
 
 </p>
@@ -83,8 +83,9 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#apply">apply (v, regexp)</a></td>
-	<td class="summary">Matches a string against a given regular expression.</td>
+	<td class="name" nowrap><a href="#apply">apply (v)</a></td>
+	<td class="summary">Validates that the value is a string
+ Returns nil if the value is a string, otherwise returns an error message.</td>
 	</tr>
 </table>
 
@@ -97,26 +98,24 @@
     <dl class="function">
     <dt>
     <a name = "apply"></a>
-    <strong>apply (v, regexp)</strong>
+    <strong>apply (v)</strong>
     </dt>
     <dd>
-    Matches a string against a given regular expression.
+    Validates that the value is a string
+ Returns nil if the value is a string, otherwise returns an error message.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">v</span>
-         The input string to be matched.
-        </li>
-        <li><span class="parameter">regexp</span>
-         The regular expression pattern to match against.
+         The input value to be validated.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        The matched substring if found, otherwise nil.
+        nil|string nil if the value is a string, otherwise an error message.
     </ol>
 
 

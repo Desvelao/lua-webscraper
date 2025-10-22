@@ -31,17 +31,17 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Functions">Functions</a></li>
+
+
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><strong>example.lua</strong></li>
 </ul>
-
-
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/filters.html">filters</a></li>
   <li><a href="../modules/filters.filters.lowercase.html">filters.filters.lowercase</a></li>
-  <li><strong>filters.filters.match</strong></li>
+  <li><a href="../modules/filters.filters.match.html">filters.filters.match</a></li>
   <li><a href="../modules/filters.filters.parse_date.html">filters.filters.parse_date</a></li>
   <li><a href="../modules/filters.filters.replace.html">filters.filters.replace</a></li>
   <li><a href="../modules/filters.filters.to_boolean.html">filters.filters.to_boolean</a></li>
@@ -63,67 +63,37 @@
 <ul class="">
   <li><a href="../topics/README.md.html">README</a></li>
 </ul>
-<h2>Examples</h2>
-<ul class="nowrap">
-  <li><a href="../examples/example.lua.html">example.lua</a></li>
-</ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>filters.filters.match</code></h1>
-<p>Match filter
- This module provides a filter to match strings against a given regular expression.</p>
-<p>
+    <h2>example.lua</h2>
+<pre>
+<span class="comment">-- parser deep limit
+</span>htmlparser_looplimit = <span class="number">8000</span>
 
-</p>
+<span class="keyword">local</span> webscraper = <span class="global">require</span>(<span class="string">"webscraper"</span>)
 
-
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#apply">apply (v, regexp)</a></td>
-	<td class="summary">Matches a string against a given regular expression.</td>
-	</tr>
-</table>
-
-<br/>
-<br/>
-
-
-    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "apply"></a>
-    <strong>apply (v, regexp)</strong>
-    </dt>
-    <dd>
-    Matches a string against a given regular expression.
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">v</span>
-         The input string to be matched.
-        </li>
-        <li><span class="parameter">regexp</span>
-         The regular expression pattern to match against.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        The matched substring if found, otherwise nil.
-    </ol>
-
-
-
-
-</dd>
-</dl>
+webscraper.sites:<span class="function-name">register</span>(<span class="string">"site1"</span>, {
+	urls_match = { <span class="string">"site1%.com"</span>, <span class="string">"site1%.net"</span> },
+	fields = {
+		title = {
+			selector = <span class="string">".title"</span>,
+		},
+		subtitle = {
+			selector = { <span class="string">".subtitle"</span>, <span class="string">"#subtitle"</span> }, <span class="comment">-- multiple selector matchers, the first one that get a value will be used
+</span>		},
+		property_number = {
+			selector = { <span class="string">".property_number"</span> },
+			transform = <span class="string">"trim | to_number"</span>,
+		},
+		property_text = {
+			selector = { <span class="string">".property_text"</span> },
+			transform = <span class="string">"trim | to_number"</span>,
+		},
+	},
+})</pre>
 
 
 </div> <!-- id="content" -->
