@@ -47,15 +47,6 @@ function WebScraper:new()
 	return setmetatable(instance, { __index = WebScraper })
 end
 
-function WebScraper:load_from_remote(url)
-	local response = requests.get({ url, { headers = { ["Accept"] = "application/json" } } })
-	local sites = dkjson.decode(response.text).items
-
-	for i, site in ipairs(sites) do
-		self.sites:register(site.name, site)
-	end
-end
-
 --- Apply a transformation pipeline to a given value.
 -- @param value The value to be transformed.
 -- @param pipeline_str A string representing the transformation pipeline, e.g., "fn1(...) | fn2(...)".
