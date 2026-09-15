@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>webscraper - Scrap data of webpages (v0.1.0)</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>webscraper</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/filters.html">filters</a></li>
+  <li><a href="../modules/filters.filters.attr.html">filters.filters.attr</a></li>
+  <li><a href="../modules/filters.filters.lowercase.html">filters.filters.lowercase</a></li>
+  <li><a href="../modules/filters.filters.match.html">filters.filters.match</a></li>
+  <li><a href="../modules/filters.filters.parse_date.html">filters.filters.parse_date</a></li>
+  <li><a href="../modules/filters.filters.replace.html">filters.filters.replace</a></li>
+  <li><a href="../modules/filters.filters.text.html">filters.filters.text</a></li>
+  <li><a href="../modules/filters.filters.to_boolean.html">filters.filters.to_boolean</a></li>
+  <li><a href="../modules/filters.filters.to_negate.html">filters.filters.to_negate</a></li>
+  <li><a href="../modules/filters.filters.to_number.html">filters.filters.to_number</a></li>
+  <li><a href="../modules/filters.filters.trim.html">filters.filters.trim</a></li>
+  <li><a href="../modules/filters.filters.uppercase.html">filters.filters.uppercase</a></li>
+  <li><a href="../modules/validators.html">validators</a></li>
+  <li><a href="../modules/filters.validators.is_boolean.html">filters.validators.is_boolean</a></li>
+  <li><a href="../modules/filters.validators.is_number.html">filters.validators.is_number</a></li>
+  <li><a href="../modules/filters.validators.is_string.html">filters.validators.is_string</a></li>
+  <li><a href="../modules/WebScraper.html">WebScraper</a></li>
+  <li><a href="../modules/dsl_filter.html">dsl_filter</a></li>
+  <li><strong>web_scraper.expr</strong></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/WebScraper.html">WebScraper</a></li>
+</ul>
+<h2>Topics</h2>
+<ul class="">
+  <li><a href="../topics/README.md.html">README</a></li>
+</ul>
+<h2>Examples</h2>
+<ul class="nowrap">
+  <li><a href="../examples/example.lua.html">example.lua</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>web_scraper.expr</code></h1>
+<p>Computed-property arithmetic expressions
+ A small recursive-descent tokenizer + evaluator for a minimal arithmetic
+ grammar, used by WebScraper:<em>run's computed-field pass (see
+ WebScraper:</em>run's doc comment on <code>fields.&lt;key&gt;.compute</code>).</p>
+<p> Grammar:
+   expr   := term (('+' | '-') term)*
+   term   := factor (('<em>' | '/') factor)</em>
+   factor := '-' factor | '(' expr ')' | NUMBER | IDENT</p>
+
+<p> An identifier resolves against the <code>data</code> table (a field name -> its
+ already-extracted/computed value). A missing or non-numeric identifier
+ makes the WHOLE expression resolve to nil rather than raising -
+ consistent with the rest of this library treating "couldn't produce a
+ value" as simply an absent field, not a crash (the same way a selector
+ that matches nothing just leaves a field unset).</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#eval">eval (expr_str, data)</a></td>
+	<td class="summary">Evaluates an arithmetic expression against a data table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#identifiers">identifiers (expr_str)</a></td>
+	<td class="summary">Returns the set of identifier names referenced in an expression.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "eval"></a>
+    <strong>eval (expr_str, data)</strong>
+    </dt>
+    <dd>
+    Evaluates an arithmetic expression against a data table.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">expr_str</span>
+         The expression, e.g. "(original<em>price - price) / original</em>price * 100".
+        </li>
+        <li><span class="parameter">data</span>
+         A table of already-extracted/computed field values, resolved by identifier name.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        number|nil The result, or nil if a referenced field is missing/non-numeric.</li>
+        <li>
+        string|nil An error message if the expression itself is malformed.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "identifiers"></a>
+    <strong>identifiers (expr_str)</strong>
+    </dt>
+    <dd>
+    Returns the set of identifier names referenced in an expression.
+ Used to order computed fields that reference each other - not by the
+ evaluator itself, which resolves identifiers directly against <code>data</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">expr_str</span>
+         The expression to scan.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table A set ({[name]=true, ...}) of every identifier found.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2026-09-15 17:55:42 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
