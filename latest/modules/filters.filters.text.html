@@ -31,6 +31,10 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
 
 
 <h2>Modules</h2>
@@ -41,7 +45,7 @@
   <li><a href="../modules/filters.filters.match.html">filters.filters.match</a></li>
   <li><a href="../modules/filters.filters.parse_date.html">filters.filters.parse_date</a></li>
   <li><a href="../modules/filters.filters.replace.html">filters.filters.replace</a></li>
-  <li><a href="../modules/filters.filters.text.html">filters.filters.text</a></li>
+  <li><strong>filters.filters.text</strong></li>
   <li><a href="../modules/filters.filters.to_boolean.html">filters.filters.to_boolean</a></li>
   <li><a href="../modules/filters.filters.to_negate.html">filters.filters.to_negate</a></li>
   <li><a href="../modules/filters.filters.to_number.html">filters.filters.to_number</a></li>
@@ -52,7 +56,7 @@
   <li><a href="../modules/filters.validators.is_number.html">filters.validators.is_number</a></li>
   <li><a href="../modules/filters.validators.is_string.html">filters.validators.is_string</a></li>
   <li><a href="../modules/WebScraper.html">WebScraper</a></li>
-  <li><strong>dsl_filter</strong></li>
+  <li><a href="../modules/dsl_filter.html">dsl_filter</a></li>
   <li><a href="../modules/web_scraper.expr.html">web_scraper.expr</a></li>
 </ul>
 <h2>Classes</h2>
@@ -72,40 +76,61 @@
 
 <div id="content">
 
-<h1>Module <code>dsl_filter</code></h1>
-<p>The DSL filter module provides functionality to apply a series of filters
- to a given value based on a pipeline string.</p>
-<p> It supports parsing and executing filter commands with arguments.</p>
-    <h3>Usage:</h3>
+<h1>Module <code>filters.filters.text</code></h1>
+<p>Text filter
+ This module provides a filter to extract an element's text/inner content.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#apply">apply (v)</a></td>
+	<td class="summary">Extracts an element's content via its own getcontent() method - the
+ same call WebScraper:_run used unconditionally before fields started
+ receiving the raw element (see attr.lua's doc comment for why).</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "apply"></a>
+    <strong>apply (v)</strong>
+    </dt>
+    <dd>
+    Extracts an element's content via its own getcontent() method - the
+ same call WebScraper:_run used unconditionally before fields started
+ receiving the raw element (see attr.lua's doc comment for why).  Passing
+ through a non-element value unchanged keeps this safe to use after
+ another filter has already produced a plain value.
+
+
+    <h3>Parameters:</h3>
     <ul>
-        <li><pre class="example">local dsl_filter = require(&quot;web_scraper.dsl_filter&quot;)
-local filters = {
- lowercase = function(v) return v:lower() end,
- uppercase = function(v) return v:upper() end,
-}
-local result = dsl_filter.apply_filter(&quot;Hello World&quot;, &quot;lowercase() | uppercase()&quot;, filters)
-print(result) -- Output: &quot;HELLO WORLD&quot;
-</pre></li>
-        <li><pre class="example">local dsl_filter = require(&quot;web_scraper.dsl_filter&quot;)
-local validators = {
- is_number = function(v) return tonumber(v) and nil or &quot;Not a number&quot; end,
- is_positive = function(v) return v &gt; 0 and nil or &quot;Not positive&quot; end,
-}
-local valid, err = dsl_filter.apply_validate(&quot;42&quot;, &quot;is_number() | is_positive()&quot;, validators)
-if valid then
- print(&quot;Value is valid&quot;)
-else
- print(&quot;Validation error: &quot; .. err)
-end
-</pre></li>
+        <li><span class="parameter">v</span>
+         The input element (or already-extracted value).
+        </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        string The element's text/inner content, or v unchanged.
+    </ol>
 
 
-<br/>
-<br/>
 
 
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

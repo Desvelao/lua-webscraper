@@ -43,7 +43,7 @@
   <li><a href="../modules/filters.filters.attr.html">filters.filters.attr</a></li>
   <li><a href="../modules/filters.filters.lowercase.html">filters.filters.lowercase</a></li>
   <li><a href="../modules/filters.filters.match.html">filters.filters.match</a></li>
-  <li><strong>filters.filters.parse_date</strong></li>
+  <li><a href="../modules/filters.filters.parse_date.html">filters.filters.parse_date</a></li>
   <li><a href="../modules/filters.filters.replace.html">filters.filters.replace</a></li>
   <li><a href="../modules/filters.filters.text.html">filters.filters.text</a></li>
   <li><a href="../modules/filters.filters.to_boolean.html">filters.filters.to_boolean</a></li>
@@ -57,7 +57,7 @@
   <li><a href="../modules/filters.validators.is_string.html">filters.validators.is_string</a></li>
   <li><a href="../modules/WebScraper.html">WebScraper</a></li>
   <li><a href="../modules/dsl_filter.html">dsl_filter</a></li>
-  <li><a href="../modules/web_scraper.expr.html">web_scraper.expr</a></li>
+  <li><strong>web_scraper.expr</strong></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
@@ -76,19 +76,33 @@
 
 <div id="content">
 
-<h1>Module <code>filters.filters.parse_date</code></h1>
-<p>Parse date filter
- This module provides a filter to parse date strings into ISO format.</p>
-<p>
+<h1>Module <code>web_scraper.expr</code></h1>
+<p>Computed-property arithmetic expressions
+ A small recursive-descent tokenizer + evaluator for a minimal arithmetic
+ grammar, used by WebScraper:<em>run's computed-field pass (see
+ WebScraper:</em>run's doc comment on <code>fields.&lt;key&gt;.compute</code>).</p>
+<p> Grammar:
+   expr   := term (('+' | '-') term)*
+   term   := factor (('<em>' | '/') factor)</em>
+   factor := '-' factor | '(' expr ')' | NUMBER | IDENT</p>
 
-</p>
+<p> An identifier resolves against the <code>data</code> table (a field name -> its
+ already-extracted/computed value). A missing or non-numeric identifier
+ makes the WHOLE expression resolve to nil rather than raising -
+ consistent with the rest of this library treating "couldn't produce a
+ value" as simply an absent field, not a crash (the same way a selector
+ that matches nothing just leaves a field unset).</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#apply">apply (v, fmt)</a></td>
-	<td class="summary">Parses a date string into ISO format (YYYY-MM-DD).</td>
+	<td class="name" nowrap><a href="#eval">eval (expr_str, data)</a></td>
+	<td class="summary">Evaluates an arithmetic expression against a data table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#identifiers">identifiers (expr_str)</a></td>
+	<td class="summary">Returns the set of identifier names referenced in an expression.</td>
 	</tr>
 </table>
 
@@ -100,28 +114,56 @@
 
     <dl class="function">
     <dt>
-    <a name = "apply"></a>
-    <strong>apply (v, fmt)</strong>
+    <a name = "eval"></a>
+    <strong>eval (expr_str, data)</strong>
     </dt>
     <dd>
-    Parses a date string into ISO format (YYYY-MM-DD).
-  Supported format specifiers: %Y (year), %m (month), %d (day).
+    Evaluates an arithmetic expression against a data table.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">v</span>
-         The input date string to be parsed.
+        <li><span class="parameter">expr_str</span>
+         The expression, e.g. "(original<em>price - price) / original</em>price * 100".
         </li>
-        <li><span class="parameter">fmt</span>
-         The format of the input date string (default is "%d/%m/%Y").
+        <li><span class="parameter">data</span>
+         A table of already-extracted/computed field values, resolved by identifier name.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        number|nil The result, or nil if a referenced field is missing/non-numeric.</li>
+        <li>
+        string|nil An error message if the expression itself is malformed.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "identifiers"></a>
+    <strong>identifiers (expr_str)</strong>
+    </dt>
+    <dd>
+    Returns the set of identifier names referenced in an expression.
+ Used to order computed fields that reference each other - not by the
+ evaluator itself, which resolves identifiers directly against <code>data</code>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">expr_str</span>
+         The expression to scan.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        The date in ISO format (YYYY-MM-DD) or the original string if parsing fails.
+        table A set ({[name]=true, ...}) of every identifier found.
     </ol>
 
 
