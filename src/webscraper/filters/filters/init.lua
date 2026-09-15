@@ -3,7 +3,7 @@
 -- @module filters
 local M = {}
 
-for _, key in ipairs({ "lowercase", "match", "parse_date", "replace", "to_boolean", "to_number", "trim", "uppercase" }) do
+for _, key in ipairs({ "attr", "lowercase", "match", "parse_date", "replace", "text", "to_boolean", "to_negate", "to_number", "trim", "uppercase" }) do
 	M[key] = require("webscraper.filters.filters.repository." .. key).apply
 end
 
